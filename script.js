@@ -54,10 +54,10 @@ const scenes = [
 ];
 
 const scenarios = [
-  { id: "solar-noir", name: "Solar Noir", note: "A hot dramatic planet where infrastructure glows and rumors move like heat.", palette: ["#ff9b54", "#ff5f6d", "#ffe66d", "#92d6ff"], caption: "The world burns beautifully", drone: 174 },
-  { id: "tidal-choir", name: "Tidal Choir", note: "A liquid planet where ports, tides, signals, and human voices move as one body.", palette: ["#92d6ff", "#2ec4b6", "#7998ff", "#f6f0d8"], caption: "The world sings in currents", drone: 146 },
-  { id: "saturn-market", name: "Saturn Market", note: "A glamorous trade planet where logistics become fashion, ritual, and celestial commerce.", palette: ["#e9c46a", "#f4a261", "#a8dadc", "#6d597a"], caption: "The world shops among rings", drone: 196 },
-  { id: "ghost-transit", name: "Ghost Transit", note: "A haunted planet where public movement leaves afterimages and forgotten routes whisper back.", palette: ["#cdf564", "#92d6ff", "#ff8fab", "#7998ff"], caption: "The world remembers every route", drone: 132 },
+  { id: "ember-core", name: "Ember Core", note: "A volatile newborn intelligence stabilizing itself inside an orange containment halo.", palette: ["#ff9a3c", "#ff6a2a", "#ffc56f", "#ffcf8e"], caption: "The intelligence is forming", drone: 174 },
+  { id: "solar-noir", name: "Solar Noir", note: "A hot dramatic planet where infrastructure glows and rumors move like heat.", palette: ["#ff9a3c", "#ff6a2a", "#ffc56f", "#ffcf8e"], caption: "The chamber burns beautifully", drone: 182 },
+  { id: "tidal-choir", name: "Tidal Choir", note: "A liquid mind-state where cognition ripples through glass and current.", palette: ["#ffcf8e", "#ffb45a", "#ff7c36", "#ffd79c"], caption: "The intelligence sings in currents", drone: 146 },
+  { id: "ghost-transit", name: "Ghost Transit", note: "A haunted machine-state where old routes, surveillance ghosts, and half-formed thoughts overlap.", palette: ["#ffc56f", "#ff8c3a", "#ff6a2a", "#ffe1b7"], caption: "The chamber remembers every route", drone: 132 },
 ];
 
 const places = ["Reykjavik Harbor", "Lagos Heat Arc", "Osaka Beltway", "Santiago Ridge", "Casablanca Rooftops", "Jakarta Delta", "Milan Signal Tunnel", "Phoenix Airlane", "Nairobi Transfer Yard", "Sao Paulo River Grid", "Tallinn Fog Relay", "Bogota Vertical Market", "Moonlit Freight Spine", "Delta Broadcast Garden"];
@@ -336,9 +336,19 @@ function seedNodes() {
 
 function drawField() {
   const { width, height } = canvas.getBoundingClientRect();
+  const centerX = width / 2;
+  const centerY = height / 2;
   context.clearRect(0, 0, width, height);
-  context.fillStyle = "rgba(255,255,255,0.02)";
+  context.fillStyle = "rgba(255,180,90,0.018)";
   context.fillRect(0, 0, width, height);
+
+  for (let ring = 0; ring < 4; ring += 1) {
+    context.beginPath();
+    context.strokeStyle = `rgba(255, 162, 74, ${0.12 - ring * 0.02})`;
+    context.lineWidth = 1;
+    context.arc(centerX, centerY, 54 + ring * 36 + Math.sin((animationFrame + ring * 12) / 20) * 4, 0, Math.PI * 2);
+    context.stroke();
+  }
 
   for (let index = 0; index < nodes.length; index += 1) {
     const node = nodes[index];
@@ -362,6 +372,11 @@ function drawField() {
       }
     }
 
+    const dxCore = centerX - node.x;
+    const dyCore = centerY - node.y;
+    node.x += dxCore * 0.0009;
+    node.y += dyCore * 0.0009;
+
     const bloom = 3 + Math.sin((animationFrame + index) / 18) * 2;
     const gradient = context.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.radius * 10);
     gradient.addColorStop(0, `${node.color}ee`);
@@ -371,6 +386,15 @@ function drawField() {
     context.arc(node.x, node.y, node.radius * bloom, 0, Math.PI * 2);
     context.fill();
   }
+
+  const coreGradient = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, 120);
+  coreGradient.addColorStop(0, "rgba(255, 214, 138, 0.95)");
+  coreGradient.addColorStop(0.25, "rgba(255, 156, 60, 0.42)");
+  coreGradient.addColorStop(1, "rgba(255, 120, 40, 0)");
+  context.fillStyle = coreGradient;
+  context.beginPath();
+  context.arc(centerX, centerY, 120, 0, Math.PI * 2);
+  context.fill();
 
   animationFrame += 1;
   requestAnimationFrame(drawField);
@@ -387,8 +411,8 @@ function calmField() {
   gainControl.value = 38;
   densityControl.value = 18;
   driftControl.value = 8;
-  pulseCaption.textContent = "The planet exhales";
-  operatorNote.textContent = "The website slows down and starts listening more carefully than before.";
+  pulseCaption.textContent = "The chamber exhales";
+  operatorNote.textContent = "The machine lowers its temperature and listens through the glow.";
   seedNodes();
   buildSignals();
   buildTimeline();
@@ -518,7 +542,7 @@ buildDreamVault();
 drawField();
 updateClock();
 setInterval(updateClock, 1000);
-logConsole("system", "Signal Bloom online. This is a digital museum piece about the emotional life of systems. Type `help` to go deeper.");
+logConsole("system", "Signal Bloom online. A machine consciousness is assembling inside containment. Type `help` to go deeper.");
 updateUnlockStatus();
 runBootSequence();
 topbar.classList.add("topbar-hidden");
