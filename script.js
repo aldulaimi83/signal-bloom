@@ -1,12 +1,19 @@
 const signalStream = document.querySelector("#signal-stream");
 const chorusList = document.querySelector("#chorus-list");
+const scenarioGrid = document.querySelector("#scenario-grid");
+const timeline = document.querySelector("#timeline");
+const transmissionInput = document.querySelector("#transmission-input");
+const transmissionOutput = document.querySelector("#transmission-output");
+const operatorNote = document.querySelector("#operator-note");
 const clock = document.querySelector("#clock");
 const pulseIndex = document.querySelector("#pulse-index");
+const pulseCaption = document.querySelector("#pulse-caption");
 const atmosphere = document.querySelector("#metric-atmosphere");
 const transit = document.querySelector("#metric-transit");
 const story = document.querySelector("#metric-story");
 const reseedButton = document.querySelector("#reseed");
 const calmButton = document.querySelector("#calm");
+const transmitButton = document.querySelector("#transmit");
 const gainControl = document.querySelector("#gain");
 const densityControl = document.querySelector("#density");
 const driftControl = document.querySelector("#drift");
@@ -14,10 +21,35 @@ const driftControl = document.querySelector("#drift");
 const canvas = document.querySelector("#signal-canvas");
 const context = canvas.getContext("2d");
 
-const palettes = [
-  ["#ff9b54", "#ff5f6d", "#cdf564", "#92d6ff"],
-  ["#92d6ff", "#7998ff", "#ff8fab", "#ffe66d"],
-  ["#f4a261", "#e76f51", "#2a9d8f", "#e9c46a"],
+const scenarios = [
+  {
+    id: "solar-noir",
+    name: "Solar Noir",
+    note: "Heat, rumor, and glowing infrastructure blur into a desert opera.",
+    palette: ["#ff9b54", "#ff5f6d", "#ffe66d", "#92d6ff"],
+    caption: "Sunlit instability",
+  },
+  {
+    id: "tidal-choir",
+    name: "Tidal Choir",
+    note: "Ports, currents, and public voice coils turn the field aquatic.",
+    palette: ["#92d6ff", "#2ec4b6", "#7998ff", "#f6f0d8"],
+    caption: "Liquid coordination",
+  },
+  {
+    id: "saturn-market",
+    name: "Saturn Market",
+    note: "Orbital commerce and mythic logistics create a glittering nervous system.",
+    palette: ["#e9c46a", "#f4a261", "#a8dadc", "#6d597a"],
+    caption: "Trade becoming weather",
+  },
+  {
+    id: "ghost-transit",
+    name: "Ghost Transit",
+    note: "Trains, shadows, and forgotten signals reappear as a public seance.",
+    palette: ["#cdf564", "#92d6ff", "#ff8fab", "#7998ff"],
+    caption: "Haunted synchronization",
+  },
 ];
 
 const places = [
@@ -31,6 +63,8 @@ const places = [
   "Phoenix Airlane",
   "Nairobi Transfer Yard",
   "Sao Paulo River Grid",
+  "Tallinn Fog Relay",
+  "Bogota Vertical Market",
 ];
 
 const events = [
@@ -44,6 +78,8 @@ const events = [
   "public screens adopted a shared orange glow",
   "heat domes nudged infrastructure into improvisation",
   "citizen sensors started arguing with official maps",
+  "river traffic copied the tempo of emergency dispatch",
+  "warehouse rooftops flashed in unofficial semaphore",
 ];
 
 const chorusTemplates = [
@@ -52,11 +88,28 @@ const chorusTemplates = [
   "Public attention is pooling around luminous edge cases instead of headlines.",
   "A soft infrastructure event is underway: nothing breaks, but everything bends.",
   "Machine certainty is falling while human improvisation is rising.",
+  "The field is behaving like gossip with a barometric memory.",
+];
+
+const timelineTemplates = [
+  "A civic network borrowed the color of sunset and refused to return it.",
+  "Unofficial operators rerouted fear into curiosity for thirteen brilliant minutes.",
+  "A cluster of silent satellites became the loudest thing in public conversation.",
+  "Transit signage started reading like poetry after a weather data splice.",
+  "The organism archived a failed prediction and called it compost.",
+];
+
+const replyFragments = [
+  "The satellites answer in warm static:",
+  "The field returns a private weather bulletin:",
+  "Signal Bloom translates your prompt into infrastructure mythology:",
+  "A chorus node replies with this fragment:",
 ];
 
 let nodes = [];
-let palette = palettes[0];
+let palette = scenarios[0].palette;
 let animationFrame = 0;
+let activeScenario = scenarios[0];
 
 function randomBetween(min, max) {
   return Math.random() * (max - min) + min;
@@ -71,6 +124,33 @@ function updateClock() {
   clock.textContent = `${now.toLocaleTimeString("en-US", { hour12: false })} UTC-ish`;
 }
 
+function renderScenarioButtons() {
+  scenarioGrid.innerHTML = "";
+  scenarios.forEach((scenario) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "scenario-card";
+    if (scenario.id === activeScenario.id) {
+      button.classList.add("is-active");
+    }
+    button.innerHTML = `
+      <strong>${scenario.name}</strong>
+      <span>${scenario.note}</span>
+    `;
+    button.addEventListener("click", () => {
+      activeScenario = scenario;
+      palette = scenario.palette;
+      pulseCaption.textContent = scenario.caption;
+      operatorNote.textContent = scenario.note;
+      renderScenarioButtons();
+      seedNodes();
+      buildSignals();
+      buildTimeline();
+    });
+    scenarioGrid.appendChild(button);
+  });
+}
+
 function buildSignals() {
   const count = Math.max(6, Math.round(Number(densityControl.value) / 3));
   const signals = Array.from({ length: count }, (_, index) => {
@@ -78,7 +158,7 @@ function buildSignals() {
     return {
       color: palette[index % palette.length],
       title: `${pick(places)} / Node ${String(index + 1).padStart(2, "0")}`,
-      text: pick(events),
+      text: `${pick(events)} in ${activeScenario.name.toLowerCase()}`,
       energy,
       phase: energy > 82 ? "surging" : energy > 64 ? "drifting" : "observing",
     };
@@ -120,6 +200,22 @@ function buildSignals() {
   atmosphere.textContent = `${Math.round(randomBetween(58, 94))}%`;
   transit.textContent = `${Math.round(randomBetween(18, 63))} vectors`;
   story.textContent = pick(["Rising", "Forking", "Mutating", "Unstable"]);
+}
+
+function buildTimeline() {
+  timeline.innerHTML = "";
+  Array.from({ length: 4 }, (_, index) => ({
+    label: `Mutation ${String(index + 1).padStart(2, "0")}`,
+    text: pick(timelineTemplates),
+  })).forEach((entry) => {
+    const item = document.createElement("article");
+    item.className = "timeline-item";
+    item.innerHTML = `
+      <strong>${entry.label}</strong>
+      <span>${entry.text}</span>
+    `;
+    timeline.appendChild(item);
+  });
 }
 
 function resizeCanvas() {
@@ -193,21 +289,47 @@ function drawField() {
 }
 
 function reseedExperience() {
-  palette = pick(palettes);
+  activeScenario = pick(scenarios);
+  palette = activeScenario.palette;
+  pulseCaption.textContent = activeScenario.caption;
+  operatorNote.textContent = activeScenario.note;
+  renderScenarioButtons();
   seedNodes();
   buildSignals();
+  buildTimeline();
 }
 
 function calmField() {
   gainControl.value = 38;
   densityControl.value = 18;
   driftControl.value = 8;
+  pulseCaption.textContent = "Calmed but listening";
+  operatorNote.textContent = "The organism lowers its voice but keeps recording the edges.";
   seedNodes();
   buildSignals();
+  buildTimeline();
+}
+
+function transmitPrompt() {
+  const prompt = transmissionInput.value.trim();
+  if (!prompt) {
+    transmissionOutput.textContent = "No transmission detected. Offer the organism a sentence and it will reshape it.";
+    return;
+  }
+
+  transmissionOutput.textContent = `${pick(replyFragments)} ${prompt}. The field marks it as ${
+    pick(["a luminous reroute", "a civic omen", "an atmospheric rumor", "a tender systems failure"])
+  }.`;
 }
 
 reseedButton.addEventListener("click", reseedExperience);
 calmButton.addEventListener("click", calmField);
+transmitButton.addEventListener("click", transmitPrompt);
+transmissionInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    transmitPrompt();
+  }
+});
 
 [gainControl, densityControl, driftControl].forEach((input) => {
   input.addEventListener("input", () => {
@@ -221,9 +343,11 @@ window.addEventListener("resize", () => {
   seedNodes();
 });
 
+renderScenarioButtons();
 resizeCanvas();
 seedNodes();
 buildSignals();
+buildTimeline();
 drawField();
 updateClock();
 setInterval(updateClock, 1000);

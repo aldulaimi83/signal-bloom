@@ -1,0 +1,17 @@
+{
+  "name": "Signal Bloom",
+  "short_name": "Signal Bloom",
+  "description": "A cinematic speculative control room where world signals bloom into a living organism.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#08131f",
+  "theme_color": "#08131f",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
