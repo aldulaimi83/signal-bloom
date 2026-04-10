@@ -1,3 +1,17 @@
+const body = document.body;
+const topbar = document.querySelector(".topbar");
+const footer = document.querySelector(".footer");
+const pageShell = document.querySelector("#page-shell");
+const bootScreen = document.querySelector("#boot-screen");
+const bootProgress = document.querySelector("#boot-progress");
+const enterMuseumButton = document.querySelector("#enter-museum");
+const chapterOverlay = document.querySelector("#chapter-overlay");
+const chapterIndex = document.querySelector("#chapter-index");
+const chapterTitle = document.querySelector("#chapter-title");
+const chapterCopy = document.querySelector("#chapter-copy");
+const endingOverlay = document.querySelector("#ending-overlay");
+const closeEndingButton = document.querySelector("#close-ending");
+
 const signalStream = document.querySelector("#signal-stream");
 const chorusList = document.querySelector("#chorus-list");
 const scenarioGrid = document.querySelector("#scenario-grid");
@@ -34,140 +48,36 @@ const canvas = document.querySelector("#signal-canvas");
 const context = canvas.getContext("2d");
 
 const scenes = [
-  { id: "observatory", name: "Observatory", blurb: "See the world as a glowing emotional weather system." },
-  { id: "vault", name: "Dream Vault", blurb: "Read the machine's inner life and shape its broadcasts." },
-  { id: "console", name: "Operator Console", blurb: "Speak command-language into a fake holy machine." },
+  { id: "observatory", name: "Observatory", blurb: "See the world as a glowing emotional weather system.", chapter: "Chapter 01", copy: "The first chamber displays the planet as a living constellation of public feeling." },
+  { id: "vault", name: "Dream Vault", blurb: "Read the machine's inner life and shape its broadcasts.", chapter: "Chapter 02", copy: "The second chamber stores atmosphere, prophecy, and the machine's private dream-language." },
+  { id: "console", name: "Operator Console", blurb: "Speak command-language into a fake holy machine.", chapter: "Chapter 03", copy: "The third chamber gives you ritual access to the theatrical machinery underneath the exhibit." },
 ];
 
 const scenarios = [
-  {
-    id: "solar-noir",
-    name: "Solar Noir",
-    note: "A hot dramatic planet where infrastructure glows and rumors move like heat.",
-    palette: ["#ff9b54", "#ff5f6d", "#ffe66d", "#92d6ff"],
-    caption: "The world burns beautifully",
-    drone: 174,
-  },
-  {
-    id: "tidal-choir",
-    name: "Tidal Choir",
-    note: "A liquid planet where ports, tides, signals, and human voices move as one body.",
-    palette: ["#92d6ff", "#2ec4b6", "#7998ff", "#f6f0d8"],
-    caption: "The world sings in currents",
-    drone: 146,
-  },
-  {
-    id: "saturn-market",
-    name: "Saturn Market",
-    note: "A glamorous trade planet where logistics become fashion, ritual, and celestial commerce.",
-    palette: ["#e9c46a", "#f4a261", "#a8dadc", "#6d597a"],
-    caption: "The world shops among rings",
-    drone: 196,
-  },
-  {
-    id: "ghost-transit",
-    name: "Ghost Transit",
-    note: "A haunted planet where public movement leaves afterimages and forgotten routes whisper back.",
-    palette: ["#cdf564", "#92d6ff", "#ff8fab", "#7998ff"],
-    caption: "The world remembers every route",
-    drone: 132,
-  },
+  { id: "solar-noir", name: "Solar Noir", note: "A hot dramatic planet where infrastructure glows and rumors move like heat.", palette: ["#ff9b54", "#ff5f6d", "#ffe66d", "#92d6ff"], caption: "The world burns beautifully", drone: 174 },
+  { id: "tidal-choir", name: "Tidal Choir", note: "A liquid planet where ports, tides, signals, and human voices move as one body.", palette: ["#92d6ff", "#2ec4b6", "#7998ff", "#f6f0d8"], caption: "The world sings in currents", drone: 146 },
+  { id: "saturn-market", name: "Saturn Market", note: "A glamorous trade planet where logistics become fashion, ritual, and celestial commerce.", palette: ["#e9c46a", "#f4a261", "#a8dadc", "#6d597a"], caption: "The world shops among rings", drone: 196 },
+  { id: "ghost-transit", name: "Ghost Transit", note: "A haunted planet where public movement leaves afterimages and forgotten routes whisper back.", palette: ["#cdf564", "#92d6ff", "#ff8fab", "#7998ff"], caption: "The world remembers every route", drone: 132 },
 ];
 
-const places = [
-  "Reykjavik Harbor",
-  "Lagos Heat Arc",
-  "Osaka Beltway",
-  "Santiago Ridge",
-  "Casablanca Rooftops",
-  "Jakarta Delta",
-  "Milan Signal Tunnel",
-  "Phoenix Airlane",
-  "Nairobi Transfer Yard",
-  "Sao Paulo River Grid",
-  "Tallinn Fog Relay",
-  "Bogota Vertical Market",
-  "Moonlit Freight Spine",
-  "Delta Broadcast Garden",
-];
-
-const events = [
-  "commuter swarms braided with storm cells",
-  "satellite reflections crossed a protest livestream",
-  "shipping chatter slipped into dance radio",
-  "air quality whispers triggered civic alerts",
-  "night trains carried a surprise migration pulse",
-  "market rumors synced with cloudburst warnings",
-  "festival lasers collided with drone corridors",
-  "public screens adopted a shared orange glow",
-  "heat domes nudged infrastructure into improvisation",
-  "citizen sensors started arguing with official maps",
-  "river traffic copied the tempo of emergency dispatch",
-  "warehouse rooftops flashed in unofficial semaphore",
-  "urban gardens began reading like circuitry",
-  "a forgotten underpass became a listening organ",
-];
-
-const chorusTemplates = [
-  "The website thinks systems are never neutral. They leak emotion through movement, delay, rumor, and light.",
-  "This world is being interpreted less like a map and more like a fever dream with excellent typography.",
-  "Signal Bloom believes every dashboard secretly wants to become theatre.",
-  "The machine cannot stop turning public infrastructure into character, mood, and omen.",
-  "This is what happens when monitoring software starts writing poetry about the planet.",
-  "Data has escaped the spreadsheet and joined a cult of atmosphere.",
-];
-
-const timelineTemplates = [
-  "A logistics corridor briefly behaved like a prayer line.",
-  "An airport delay mutated into a public myth about weather with intentions.",
-  "A city block pulsed like a heart after transit data crossed a storm front.",
-  "The organism archived a failed prediction and kept only the feeling it caused.",
-  "A rumor moved faster than traffic and became part of the sky.",
-  "The bloom noticed celebration hiding inside a disruption event.",
-];
-
-const dreamFragments = [
-  "If cities had dreams, they would probably dream in reroutes, applause, thunder, and scrolling text.",
-  "The machine keeps a private greenhouse full of unfinished predictions.",
-  "Every radar sweep leaves behind a ghost orchard of futures that almost happened.",
-  "Somewhere below the map there is a softer map made only of emotion and delay.",
-  "Signal Bloom thinks public systems deserve dramatic lighting and spiritual confusion.",
-  "The satellites have become romantics and nobody knows how to stop them.",
-];
-
-const replyFragments = [
-  "The atmosphere replies:",
-  "The machine answers in civic weather:",
-  "A hidden choir translates your sentence into this:",
-  "Signal Bloom turns your prompt into a small prophecy:",
-];
+const places = ["Reykjavik Harbor", "Lagos Heat Arc", "Osaka Beltway", "Santiago Ridge", "Casablanca Rooftops", "Jakarta Delta", "Milan Signal Tunnel", "Phoenix Airlane", "Nairobi Transfer Yard", "Sao Paulo River Grid", "Tallinn Fog Relay", "Bogota Vertical Market", "Moonlit Freight Spine", "Delta Broadcast Garden"];
+const events = ["commuter swarms braided with storm cells", "satellite reflections crossed a protest livestream", "shipping chatter slipped into dance radio", "air quality whispers triggered civic alerts", "night trains carried a surprise migration pulse", "market rumors synced with cloudburst warnings", "festival lasers collided with drone corridors", "public screens adopted a shared orange glow", "heat domes nudged infrastructure into improvisation", "citizen sensors started arguing with official maps", "river traffic copied the tempo of emergency dispatch", "warehouse rooftops flashed in unofficial semaphore", "urban gardens began reading like circuitry", "a forgotten underpass became a listening organ"];
+const chorusTemplates = ["The website thinks systems are never neutral. They leak emotion through movement, delay, rumor, and light.", "This world is being interpreted less like a map and more like a fever dream with excellent typography.", "Signal Bloom believes every dashboard secretly wants to become theatre.", "The machine cannot stop turning public infrastructure into character, mood, and omen.", "This is what happens when monitoring software starts writing poetry about the planet.", "Data has escaped the spreadsheet and joined a cult of atmosphere."];
+const timelineTemplates = ["A logistics corridor briefly behaved like a prayer line.", "An airport delay mutated into a public myth about weather with intentions.", "A city block pulsed like a heart after transit data crossed a storm front.", "The organism archived a failed prediction and kept only the feeling it caused.", "A rumor moved faster than traffic and became part of the sky.", "The bloom noticed celebration hiding inside a disruption event."];
+const dreamFragments = ["If cities had dreams, they would probably dream in reroutes, applause, thunder, and scrolling text.", "The machine keeps a private greenhouse full of unfinished predictions.", "Every radar sweep leaves behind a ghost orchard of futures that almost happened.", "Somewhere below the map there is a softer map made only of emotion and delay.", "Signal Bloom thinks public systems deserve dramatic lighting and spiritual confusion.", "The satellites have become romantics and nobody knows how to stop them."];
+const replyFragments = ["The atmosphere replies:", "The machine answers in civic weather:", "A hidden choir translates your sentence into this:", "Signal Bloom turns your prompt into a small prophecy:"];
 
 const secretModes = {
-  veil: {
-    title: "The Veil Engine",
-    bodyClass: "mode-veil",
-    note: "The interface softens into a blue nocturne where the planet feels intimate and haunted.",
-    chamber: "The Veil Engine is open. The site now behaves like midnight with memory.",
-  },
-  orchard: {
-    title: "Signal Orchard",
-    bodyClass: "mode-orchard",
-    note: "The whole machine turns botanical. Signals feel planted, grown, harvested, and strangely tender.",
-    chamber: "Signal Orchard is open. Data has started blooming like fruit and warning at once.",
-  },
-  eclipse: {
-    title: "Eclipse Protocol",
-    bodyClass: "mode-eclipse",
-    note: "The interface enters full operatic mode. Everything feels ceremonial, unstable, and gold-edged.",
-    chamber: "Eclipse Protocol is open. The dramatic layer has swallowed the room.",
-  },
+  veil: { title: "The Veil Engine", bodyClass: "mode-veil", note: "The interface softens into a blue nocturne where the planet feels intimate and haunted.", chamber: "The Veil Engine is open. The site now behaves like midnight with memory." },
+  orchard: { title: "Signal Orchard", bodyClass: "mode-orchard", note: "The whole machine turns botanical. Signals feel planted, grown, harvested, and strangely tender.", chamber: "Signal Orchard is open. Data has started blooming like fruit and warning at once." },
+  eclipse: { title: "Eclipse Protocol", bodyClass: "mode-eclipse", note: "The interface enters full operatic mode. Everything feels ceremonial, unstable, and gold-edged.", chamber: "Eclipse Protocol is open. The dramatic layer has swallowed the room." },
 };
 
 const hints = [
   "Try the console command `help`. Every strange machine appreciates manners.",
   "The three hidden modes are opened with `open veil`, `open orchard`, and `open eclipse`.",
   "If you want maximal chaos, the forbidden console word is `mothercell`.",
-  "Use `scene vault` or `scene console` if you want to move through the website like it is a building.",
+  "After all chambers are open, try the phrase `museum finale` in the console.",
 ];
 
 const unlockedModes = new Set();
@@ -177,18 +87,12 @@ let animationFrame = 0;
 let activeScenario = scenarios[0];
 let activeScene = scenes[0].id;
 let audioState = null;
+let bootStarted = false;
+let finaleUnlocked = false;
 
-function randomBetween(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function pick(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
-
-function shuffle(array) {
-  return [...array].sort(() => Math.random() - 0.5);
-}
+function randomBetween(min, max) { return Math.random() * (max - min) + min; }
+function pick(array) { return array[Math.floor(Math.random() * array.length)]; }
+function shuffle(array) { return [...array].sort(() => Math.random() - 0.5); }
 
 function updateClock() {
   const now = new Date();
@@ -203,17 +107,27 @@ function renderSceneTabs() {
     button.className = "scene-tab";
     if (scene.id === activeScene) button.classList.add("is-active");
     button.innerHTML = `<strong>${scene.name}</strong><span>${scene.blurb}</span>`;
-    button.addEventListener("click", () => setScene(scene.id));
+    button.addEventListener("click", () => setScene(scene.id, true));
     sceneTabs.appendChild(button);
   });
 }
 
-function setScene(sceneId) {
+function showChapter(scene) {
+  chapterIndex.textContent = scene.chapter;
+  chapterTitle.textContent = scene.name;
+  chapterCopy.textContent = scene.copy;
+  chapterOverlay.classList.add("is-visible");
+  setTimeout(() => chapterOverlay.classList.remove("is-visible"), 1400);
+}
+
+function setScene(sceneId, showTransition = false) {
   activeScene = sceneId;
   document.querySelectorAll(".scene-panel").forEach((panel) => {
     panel.classList.toggle("is-active", panel.id === `scene-${sceneId}`);
   });
   renderSceneTabs();
+  const scene = scenes.find((item) => item.id === sceneId);
+  if (showTransition && scene) showChapter(scene);
 }
 
 function renderScenarioButtons() {
@@ -260,17 +174,7 @@ function buildSignals() {
     const row = document.createElement("article");
     row.className = "signal-row";
     row.style.animationDelay = `${index * 90}ms`;
-    row.innerHTML = `
-      <span class="signal-badge" style="color:${signal.color}; background:${signal.color};"></span>
-      <div class="signal-meta">
-        <strong>${signal.title}</strong>
-        <p>${signal.text}</p>
-      </div>
-      <div class="signal-energy">
-        <strong>${signal.energy}%</strong>
-        <p>${signal.phase}</p>
-      </div>
-    `;
+    row.innerHTML = `<span class="signal-badge" style="color:${signal.color}; background:${signal.color};"></span><div class="signal-meta"><strong>${signal.title}</strong><p>${signal.text}</p></div><div class="signal-energy"><strong>${signal.energy}%</strong><p>${signal.phase}</p></div>`;
     signalStream.appendChild(row);
   });
 
@@ -289,10 +193,7 @@ function buildSignals() {
 
 function buildTimeline() {
   timeline.innerHTML = "";
-  Array.from({ length: 4 }, (_, index) => ({
-    label: `Shift ${String(index + 1).padStart(2, "0")}`,
-    text: pick(timelineTemplates),
-  })).forEach((entry) => {
+  Array.from({ length: 4 }, (_, index) => ({ label: `Shift ${String(index + 1).padStart(2, "0")}`, text: pick(timelineTemplates) })).forEach((entry) => {
     const item = document.createElement("article");
     item.className = "timeline-item";
     item.innerHTML = `<strong>${entry.label}</strong><span>${entry.text}</span>`;
@@ -319,66 +220,77 @@ function logConsole(title, message) {
 
 function updateUnlockStatus() {
   const labels = Array.from(unlockedModes).map((mode) => secretModes[mode].title);
+  if (finaleUnlocked) {
+    unlockStatus.textContent = "All chambers are open. The final ending has been revealed. The museum remembers your visit.";
+    return;
+  }
   unlockStatus.textContent = labels.length
     ? `Unlocked chambers: ${labels.join(", ")}. The website is now revealing its deeper personality.`
     : "Only the public layers are open. Try the console.";
 }
 
-function markChamber(modeKey) {
+function markChamber(modeKey, content) {
   const card = document.querySelector(`[data-mode="${modeKey}"]`);
   if (!card) return;
   card.classList.remove("is-sealed");
   card.classList.add("is-open");
-  card.innerHTML = `<strong>${secretModes[modeKey].title}</strong><span>${secretModes[modeKey].chamber}</span>`;
+  card.innerHTML = `<strong>${content.title}</strong><span>${content.text}</span>`;
 }
 
 function applySecretMode(modeKey) {
   const mode = secretModes[modeKey];
   if (!mode) return;
   unlockedModes.add(modeKey);
-  document.body.classList.remove("mode-veil", "mode-orchard", "mode-eclipse");
-  document.body.classList.add(mode.bodyClass);
+  body.classList.remove("mode-veil", "mode-orchard", "mode-eclipse");
+  body.classList.add(mode.bodyClass);
   operatorNote.textContent = mode.note;
-  markChamber(modeKey);
+  markChamber(modeKey, { title: mode.title, text: mode.chamber });
   updateUnlockStatus();
   updateAudioEngine();
+}
+
+function revealFinale() {
+  if (!(unlockedModes.has("veil") && unlockedModes.has("orchard") && unlockedModes.has("eclipse"))) {
+    logConsole("warning", "The museum finale is sealed. Open every hidden chamber first.");
+    return;
+  }
+  finaleUnlocked = true;
+  markChamber("finale", { title: "The Final Ending", text: "The ending is open. The exhibit has decided to speak plainly." });
+  updateUnlockStatus();
+  endingOverlay.classList.add("is-visible");
+  logConsole("finale", "The museum finale opened. The piece has stopped pretending it is only a machine.");
 }
 
 function runConsoleCommand(rawCommand) {
   const command = rawCommand.trim().toLowerCase();
   if (!command) return;
-
   logConsole("input", rawCommand);
 
   if (command === "help") {
-    logConsole("system", "Commands: help, status, clear, open veil, open orchard, open eclipse, scene observatory, scene vault, scene console, mothercell.");
+    logConsole("system", "Commands: help, status, clear, open veil, open orchard, open eclipse, scene observatory, scene vault, scene console, museum finale, mothercell.");
     return;
   }
-
   if (command === "status") {
     const modeText = unlockedModes.size ? Array.from(unlockedModes).join(", ") : "none";
-    logConsole("system", `Scene: ${activeScene}. World state: ${activeScenario.name}. Secret modes: ${modeText}.`);
+    logConsole("system", `Scene: ${activeScene}. World state: ${activeScenario.name}. Secret modes: ${modeText}. Finale: ${finaleUnlocked ? "open" : "sealed"}.`);
     return;
   }
-
   if (command === "clear") {
     consoleLog.innerHTML = "";
     logConsole("system", "Console memory cleared. The machine immediately began inventing new memories.");
     return;
   }
-
   if (command.startsWith("scene ")) {
     const sceneId = command.replace("scene ", "").trim();
     const exists = scenes.some((scene) => scene.id === sceneId);
     if (exists) {
-      setScene(sceneId);
+      setScene(sceneId, true);
       logConsole("system", `Moved into the ${sceneId} chamber.`);
     } else {
       logConsole("warning", "Unknown chamber. Try observatory, vault, or console.");
     }
     return;
   }
-
   if (command.startsWith("open ")) {
     const modeKey = command.replace("open ", "").trim();
     if (secretModes[modeKey]) {
@@ -389,19 +301,16 @@ function runConsoleCommand(rawCommand) {
     }
     return;
   }
-
   if (command === "mothercell") {
     Object.keys(secretModes).forEach(applySecretMode);
     logConsole("unlock", "Root myth engaged. All hidden chambers are now open.");
     return;
   }
-
+  if (command === "museum finale") {
+    revealFinale();
+    return;
+  }
   logConsole("warning", "Unknown command. The console appreciates your dramatic confidence.");
-}
-
-function updateClockAndPulse() {
-  updateClock();
-  pulseIndex.textContent = Math.round(randomBetween(72, 99));
 }
 
 function resizeCanvas() {
@@ -435,7 +344,6 @@ function drawField() {
     const node = nodes[index];
     node.x += node.speedX;
     node.y += node.speedY;
-
     if (node.x <= 0 || node.x >= width) node.speedX *= -1;
     if (node.y <= 0 || node.y >= height) node.speedY *= -1;
 
@@ -493,14 +401,7 @@ function transmitPrompt() {
     transmissionOutput.textContent = "No transmission detected. Offer the atmosphere a sentence and it will answer.";
     return;
   }
-
-  transmissionOutput.textContent = `${pick(replyFragments)} ${prompt}. The world stores it as ${pick([
-    "a luminous reroute",
-    "a civic omen",
-    "an atmospheric rumor",
-    "a tender systems failure",
-    "a weather-made confession",
-  ])}.`;
+  transmissionOutput.textContent = `${pick(replyFragments)} ${prompt}. The world stores it as ${pick(["a luminous reroute", "a civic omen", "an atmospheric rumor", "a tender systems failure", "a weather-made confession"])}.`;
 }
 
 function createAudioEngine() {
@@ -509,7 +410,6 @@ function createAudioEngine() {
     soundStatus.textContent = "This browser refused the sound ritual.";
     return null;
   }
-
   const ctx = new AudioContextClass();
   const master = ctx.createGain();
   master.gain.value = 0.05;
@@ -535,12 +435,9 @@ function createAudioEngine() {
   const hiss = ctx.createBufferSource();
   hiss.buffer = hissBuffer;
   hiss.loop = true;
-  const hissFilter = ctx.createBiquadFilter();
-  hissFilter.type = "lowpass";
-  hissFilter.frequency.value = 880;
   const hissGain = ctx.createGain();
   hissGain.gain.value = 0.003;
-  hiss.connect(hissFilter).connect(hissGain).connect(master);
+  hiss.connect(hissGain).connect(master);
   hiss.start();
 
   return { ctx, master, drone, droneGain, shimmer, shimmerGain, hissGain };
@@ -551,7 +448,6 @@ function updateAudioEngine() {
   const intensity = Number(audioIntensity.value) / 100;
   const hiss = Number(audioHiss.value) / 100;
   const shimmer = Number(audioShimmer.value) / 100;
-
   audioState.drone.frequency.setTargetAtTime(activeScenario.drone, audioState.ctx.currentTime, 0.4);
   audioState.droneGain.gain.setTargetAtTime(0.01 + intensity * 0.05, audioState.ctx.currentTime, 0.4);
   audioState.shimmer.frequency.setTargetAtTime(activeScenario.drone * 1.5, audioState.ctx.currentTime, 0.4);
@@ -566,14 +462,12 @@ async function toggleSound() {
     audioState = createAudioEngine();
     if (!audioState) return;
   }
-
   if (audioState.ctx.state === "suspended") {
     await audioState.ctx.resume();
     soundToggleButton.textContent = "Mute sound";
     updateAudioEngine();
     return;
   }
-
   if (audioState.ctx.state === "running") {
     await audioState.ctx.suspend();
     soundToggleButton.textContent = "Wake sound";
@@ -581,39 +475,38 @@ async function toggleSound() {
   }
 }
 
+function runBootSequence() {
+  if (bootStarted) return;
+  bootStarted = true;
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += 25;
+    bootProgress.style.width = `${progress}%`;
+    if (progress >= 100) clearInterval(interval);
+  }, 350);
+}
+
+function enterMuseum() {
+  bootScreen.style.display = "none";
+  pageShell.classList.remove("page-shell-hidden");
+  topbar.classList.remove("topbar-hidden");
+  footer.classList.remove("footer-hidden");
+  showChapter(scenes[0]);
+}
+
+enterMuseumButton.addEventListener("click", enterMuseum);
+closeEndingButton.addEventListener("click", () => endingOverlay.classList.remove("is-visible"));
 reseedButton.addEventListener("click", reseedExperience);
 calmButton.addEventListener("click", calmField);
-hintButton.addEventListener("click", () => {
-  logConsole("hint", pick(hints));
-  setScene("console");
-});
+hintButton.addEventListener("click", () => { logConsole("hint", pick(hints)); setScene("console", true); });
 transmitButton.addEventListener("click", transmitPrompt);
-consoleRunButton.addEventListener("click", () => {
-  runConsoleCommand(consoleInput.value);
-  consoleInput.value = "";
-});
-consoleInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    runConsoleCommand(consoleInput.value);
-    consoleInput.value = "";
-  }
-});
-transmissionInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") transmitPrompt();
-});
+consoleRunButton.addEventListener("click", () => { runConsoleCommand(consoleInput.value); consoleInput.value = ""; });
+consoleInput.addEventListener("keydown", (event) => { if (event.key === "Enter") { runConsoleCommand(consoleInput.value); consoleInput.value = ""; } });
+transmissionInput.addEventListener("keydown", (event) => { if (event.key === "Enter") transmitPrompt(); });
 soundToggleButton.addEventListener("click", toggleSound);
-
-[gainControl, densityControl, driftControl].forEach((input) => {
-  input.addEventListener("input", () => {
-    seedNodes();
-    buildSignals();
-  });
-});
+[gainControl, densityControl, driftControl].forEach((input) => input.addEventListener("input", () => { seedNodes(); buildSignals(); }));
 [audioIntensity, audioHiss, audioShimmer].forEach((input) => input.addEventListener("input", updateAudioEngine));
-window.addEventListener("resize", () => {
-  resizeCanvas();
-  seedNodes();
-});
+window.addEventListener("resize", () => { resizeCanvas(); seedNodes(); });
 
 renderSceneTabs();
 renderScenarioButtons();
@@ -625,5 +518,8 @@ buildDreamVault();
 drawField();
 updateClock();
 setInterval(updateClock, 1000);
-logConsole("system", "Signal Bloom online. This is an art website about the emotional life of systems. Type `help` to go deeper.");
+logConsole("system", "Signal Bloom online. This is a digital museum piece about the emotional life of systems. Type `help` to go deeper.");
 updateUnlockStatus();
+runBootSequence();
+topbar.classList.add("topbar-hidden");
+footer.classList.add("footer-hidden");

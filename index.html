@@ -17,6 +17,46 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="boot-screen" class="boot-screen">
+    <div class="boot-panel">
+      <p class="eyebrow">Signal Bloom Museum Build</p>
+      <h1>Booting the atmosphere</h1>
+      <div class="boot-log" id="boot-log">
+        <p>Connecting to abandoned satellites...</p>
+        <p>Warming civic memory lattices...</p>
+        <p>Teaching weather to speak in stories...</p>
+        <p>Inviting the visitor into the machine...</p>
+      </div>
+      <div class="boot-meter"><span id="boot-progress"></span></div>
+      <button id="enter-museum" class="primary-button" type="button">Enter the museum piece</button>
+    </div>
+  </div>
+
+  <div id="chapter-overlay" class="chapter-overlay" aria-hidden="true">
+    <div class="chapter-card">
+      <p class="eyebrow" id="chapter-index">Chapter 01</p>
+      <h2 id="chapter-title">Observatory</h2>
+      <p id="chapter-copy">Entering the first chamber.</p>
+    </div>
+  </div>
+
+  <div id="ending-overlay" class="ending-overlay" aria-hidden="true">
+    <div class="ending-card">
+      <p class="eyebrow">Final Chamber</p>
+      <h2>The Bloom Remembers You</h2>
+      <p>
+        You stayed long enough for the interface to stop performing and start confessing.
+        Under all the light, noise, myth, and spectacle, this piece was always about the simple,
+        unreasonable hope that our machines might one day reflect not just what we measure,
+        but what we feel.
+      </p>
+      <p>
+        Signal Bloom was never a dashboard. It was a museum of public emotion disguised as a machine.
+      </p>
+      <button id="close-ending" class="primary-button" type="button">Return to the bloom</button>
+    </div>
+  </div>
+
   <div class="noise"></div>
   <div class="aurora aurora-left"></div>
   <div class="aurora aurora-right"></div>
@@ -35,10 +75,10 @@
     </div>
   </header>
 
-  <main class="page-shell">
+  <main class="page-shell page-shell-hidden" id="page-shell">
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Version 04 / Clearer, Wilder, Stranger</p>
+        <p class="eyebrow">Version 05 / Digital Museum Piece</p>
         <h1>This is a dream of the internet if it had a soul.</h1>
         <p class="lede">
           Signal Bloom is an interactive art website. It imagines the world not as charts and dashboards,
@@ -89,7 +129,7 @@
       <article class="intro-card">
         <p class="eyebrow">Scene 03</p>
         <h2>Operator Console</h2>
-        <p>Type commands into a fake machine and unlock secret aesthetics, hidden chambers, and stranger moods.</p>
+        <p>Type commands into a fake machine and unlock secret aesthetics, hidden chambers, and a final ending.</p>
       </article>
     </section>
 
@@ -280,7 +320,7 @@
               <p class="eyebrow">Operator Console</p>
               <h2>Command line for ghosts</h2>
             </div>
-            <p class="panel-note">Try `help`, `status`, `open veil`, `open orchard`, `open eclipse`, `scene vault`, or `mothercell`.</p>
+            <p class="panel-note">Try `help`, `status`, `open veil`, `open orchard`, `open eclipse`, `scene vault`, `museum finale`, or `mothercell`.</p>
           </div>
           <div id="console-log" class="console-log"></div>
           <div class="console-input-row">
@@ -310,6 +350,10 @@
             <article class="sealed-card is-sealed" data-mode="eclipse">
               <strong>Eclipse Protocol</strong>
               <span>Sealed. Console access required.</span>
+            </article>
+            <article class="sealed-card is-sealed" data-mode="finale">
+              <strong>The Final Ending</strong>
+              <span>Sealed. Finish the ritual first.</span>
             </article>
           </div>
         </article>
