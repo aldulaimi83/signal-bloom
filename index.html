@@ -35,38 +35,37 @@
       <p class="eyebrow">Experimental Broadcast Garden</p>
       <p class="brand">SIGNAL BLOOM</p>
     </div>
-    <div class="status-pill">
-      <span class="status-dot"></span>
-      <span id="clock">00:00:00 UTC</span>
+    <div class="topbar-actions">
+      <button id="sound-toggle" class="ghost-button compact-button" type="button">Wake sound</button>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span id="clock">00:00:00 UTC</span>
+      </div>
     </div>
   </header>
 
   <main class="page-shell">
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Speculative Interface / Version 02</p>
-        <h1>World signals should feel alive, not filed away.</h1>
+        <p class="eyebrow">Speculative Interface / Version 03</p>
+        <h1>Enter the bloom and let the machine tell stories back.</h1>
         <p class="lede">
-          Signal Bloom imagines a control room where civic noise, weather drama, orbital traffic,
-          rumor, and human movement are translated into a living organism. It is less dashboard,
-          more ritual instrument.
+          Signal Bloom is no longer just a control room. It is now a myth engine with multiple chambers,
+          hidden states, a whispering operator console, and an ambient field that slowly learns your mood.
         </p>
         <div class="hero-actions">
           <button id="reseed" class="primary-button" type="button">Reseed the organism</button>
           <button id="calm" class="ghost-button" type="button">Calm the field</button>
+          <button id="unlock-hint" class="ghost-button" type="button">Ask for a forbidden hint</button>
         </div>
         <div class="hero-subgrid">
           <article class="mini-panel">
             <p class="eyebrow">Operator Note</p>
-            <p id="operator-note" class="mini-copy">
-              The map is listening for mood, not just incidents.
-            </p>
+            <p id="operator-note" class="mini-copy">The map is listening for mood, not just incidents.</p>
           </article>
           <article class="mini-panel">
-            <p class="eyebrow">Deployment Feel</p>
-            <p class="mini-copy">
-              Static-by-design, GitHub Pages-friendly, and strange enough to feel like a world of its own.
-            </p>
+            <p class="eyebrow">Unlocked Depth</p>
+            <p id="unlock-status" class="mini-copy">Only the public layers are open. Try the console.</p>
           </article>
         </div>
       </div>
@@ -107,111 +106,204 @@
       </article>
     </section>
 
+    <section class="scene-switcher panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Multi-Scene Lore</p>
+          <h2>Walk between chambers</h2>
+        </div>
+        <p class="panel-note">Each scene is a different ritual interface for the same living organism.</p>
+      </div>
+      <div id="scene-tabs" class="scene-tabs"></div>
+    </section>
+
     <section class="scenario-panel panel">
       <div class="panel-heading">
         <div>
           <p class="eyebrow">Universe Presets</p>
           <h2>Choose a world-state</h2>
         </div>
-        <p class="panel-note">Each mode rewires the organism, archive, and commentary stream.</p>
+        <p class="panel-note">Each mode rewires the organism, archive, commentary stream, and sound field.</p>
       </div>
       <div id="scenario-grid" class="scenario-grid"></div>
     </section>
 
-    <section class="content-grid">
-      <article class="panel large-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Live Synthetic Feed</p>
-            <h2>Signal Constellation</h2>
+    <section id="scene-observatory" class="scene-panel is-active">
+      <div class="content-grid">
+        <article class="panel large-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Live Synthetic Feed</p>
+              <h2>Signal Constellation</h2>
+            </div>
+            <p class="panel-note">Procedurally generated moments from an imaginary planet-wide sensing array.</p>
           </div>
-          <p class="panel-note">Procedurally generated moments from an imaginary planet-wide sensing array.</p>
-        </div>
-        <div id="signal-stream" class="signal-stream"></div>
-      </article>
+          <div id="signal-stream" class="signal-stream"></div>
+        </article>
 
-      <article class="panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Interpretation Layer</p>
-            <h2>Anomaly Chorus</h2>
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Interpretation Layer</p>
+              <h2>Anomaly Chorus</h2>
+            </div>
           </div>
-        </div>
-        <ul id="chorus-list" class="chorus-list"></ul>
-      </article>
+          <ul id="chorus-list" class="chorus-list"></ul>
+        </article>
 
-      <article class="panel timeline-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Memory Archive</p>
-            <h2>Recent field mutations</h2>
+        <article class="panel timeline-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Memory Archive</p>
+              <h2>Recent field mutations</h2>
+            </div>
           </div>
-        </div>
-        <div id="timeline" class="timeline"></div>
-      </article>
+          <div id="timeline" class="timeline"></div>
+        </article>
 
-      <article class="panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Field Controls</p>
-            <h2>Mood Knobs</h2>
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Field Controls</p>
+              <h2>Mood Knobs</h2>
+            </div>
           </div>
-        </div>
-        <div class="control-stack">
-          <label>
-            Bloom gain
-            <input id="gain" type="range" min="20" max="100" value="68">
-          </label>
-          <label>
-            Pattern density
-            <input id="density" type="range" min="12" max="48" value="28">
-          </label>
-          <label>
-            Drift speed
-            <input id="drift" type="range" min="5" max="28" value="16">
-          </label>
-        </div>
-      </article>
+          <div class="control-stack">
+            <label>
+              Bloom gain
+              <input id="gain" type="range" min="20" max="100" value="68">
+            </label>
+            <label>
+              Pattern density
+              <input id="density" type="range" min="12" max="48" value="28">
+            </label>
+            <label>
+              Drift speed
+              <input id="drift" type="range" min="5" max="28" value="16">
+            </label>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="lower-grid">
-      <article class="panel composer-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Transmission Composer</p>
-            <h2>Write to the machine</h2>
+    <section id="scene-vault" class="scene-panel">
+      <div class="lower-grid">
+        <article class="panel composer-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Transmission Composer</p>
+              <h2>Write to the machine</h2>
+            </div>
+            <p class="panel-note">Type a phrase and the bloom replies like a strange weather station with memory.</p>
           </div>
-          <p class="panel-note">Type a short phrase and Signal Bloom will answer with a broadcast fragment.</p>
-        </div>
-        <div class="composer">
-          <label class="sr-only" for="transmission-input">Transmission prompt</label>
-          <input id="transmission-input" class="composer-input" type="text" maxlength="90" placeholder="Example: tell me what the satellites are dreaming">
-          <button id="transmit" class="primary-button" type="button">Transmit</button>
-        </div>
-        <div id="transmission-output" class="transmission-output">
-          Awaiting operator language. The organism is listening.
-        </div>
-      </article>
+          <div class="composer">
+            <label class="sr-only" for="transmission-input">Transmission prompt</label>
+            <input id="transmission-input" class="composer-input" type="text" maxlength="90" placeholder="Example: tell me what the satellites are dreaming">
+            <button id="transmit" class="primary-button" type="button">Transmit</button>
+          </div>
+          <div id="transmission-output" class="transmission-output">Awaiting operator language. The organism is listening.</div>
+        </article>
 
-      <article class="panel manifesto-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Design Thesis</p>
-            <h2>Why this exists</h2>
+        <article class="panel sound-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Ambient Hooks</p>
+              <h2>Wake the air</h2>
+            </div>
+            <p class="panel-note">Browser-native ambient synthesis shaped by your chosen scenario.</p>
           </div>
-        </div>
-        <p>
-          Most monitoring tools flatten the world into neutral rows. Signal Bloom argues for a more
-          emotional interface: one that acknowledges intensity, uncertainty, and wonder without
-          pretending the operator is a machine.
-        </p>
-      </article>
+          <div class="control-stack">
+            <label>
+              Drone intensity
+              <input id="audio-intensity" type="range" min="0" max="100" value="42">
+            </label>
+            <label>
+              Hiss amount
+              <input id="audio-hiss" type="range" min="0" max="100" value="16">
+            </label>
+            <label>
+              Pulse shimmer
+              <input id="audio-shimmer" type="range" min="0" max="100" value="33">
+            </label>
+          </div>
+          <p id="sound-status" class="panel-footnote">Sound is dormant until you wake it.</p>
+        </article>
+      </div>
+
+      <div class="vault-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Lore Fragments</p>
+              <h2>Dream vault</h2>
+            </div>
+          </div>
+          <div id="dream-vault" class="dream-vault"></div>
+        </article>
+
+        <article class="panel manifesto-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Design Thesis</p>
+              <h2>Why this exists</h2>
+            </div>
+          </div>
+          <p>
+            Most monitoring tools flatten the world into neutral rows. Signal Bloom argues for emotional,
+            theatrical interfaces that acknowledge uncertainty, pattern hunger, and the human desire to make myth from data.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="scene-console" class="scene-panel">
+      <div class="console-grid">
+        <article class="panel operator-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Operator Console</p>
+              <h2>Command line for ghosts</h2>
+            </div>
+            <p class="panel-note">Type commands like `help`, `open veil`, `open orchard`, `open eclipse`, `status`, or `clear`.</p>
+          </div>
+          <div id="console-log" class="console-log"></div>
+          <div class="console-input-row">
+            <label class="sr-only" for="console-input">Console input</label>
+            <span class="console-prompt">SB://</span>
+            <input id="console-input" class="console-input" type="text" autocomplete="off" spellcheck="false" placeholder="enter command">
+            <button id="console-run" class="primary-button compact-button" type="button">Run</button>
+          </div>
+        </article>
+
+        <article class="panel hidden-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Deep Layer</p>
+              <h2>Unlocked chambers</h2>
+            </div>
+          </div>
+          <div id="hidden-chambers" class="hidden-chambers">
+            <article class="sealed-card is-sealed" data-mode="veil">
+              <strong>The Veil Engine</strong>
+              <span>Sealed. Console access required.</span>
+            </article>
+            <article class="sealed-card is-sealed" data-mode="orchard">
+              <strong>Signal Orchard</strong>
+              <span>Sealed. Console access required.</span>
+            </article>
+            <article class="sealed-card is-sealed" data-mode="eclipse">
+              <strong>Eclipse Protocol</strong>
+              <span>Sealed. Console access required.</span>
+            </article>
+          </div>
+        </article>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
     <p>Signal Bloom is an experiment in making monitoring interfaces feel cinematic, strange, and alive.</p>
-    <p>Built as a static deployment artifact with a custom-domain feel, fast load path, and room for myth-making.</p>
+    <p>Built as a static deployment artifact with hidden lore, audio hooks, and deeper layers waiting for curious operators.</p>
   </footer>
 
   <script src="script.js"></script>
