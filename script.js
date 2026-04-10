@@ -34,59 +34,43 @@ const canvas = document.querySelector("#signal-canvas");
 const context = canvas.getContext("2d");
 
 const scenes = [
-  {
-    id: "observatory",
-    name: "Observatory",
-    blurb: "The public-facing chamber where the organism renders the world in visible weather.",
-  },
-  {
-    id: "vault",
-    name: "Dream Vault",
-    blurb: "A softer chamber full of lore fragments, transmissions, and ambient drift.",
-  },
-  {
-    id: "console",
-    name: "Operator Console",
-    blurb: "A fake command line that happily pretends to be dangerous.",
-  },
+  { id: "observatory", name: "Observatory", blurb: "See the world as a glowing emotional weather system." },
+  { id: "vault", name: "Dream Vault", blurb: "Read the machine's inner life and shape its broadcasts." },
+  { id: "console", name: "Operator Console", blurb: "Speak command-language into a fake holy machine." },
 ];
 
 const scenarios = [
   {
     id: "solar-noir",
     name: "Solar Noir",
-    note: "Heat, rumor, and glowing infrastructure blur into a desert opera.",
+    note: "A hot dramatic planet where infrastructure glows and rumors move like heat.",
     palette: ["#ff9b54", "#ff5f6d", "#ffe66d", "#92d6ff"],
-    caption: "Sunlit instability",
+    caption: "The world burns beautifully",
     drone: 174,
-    bodyClass: "",
   },
   {
     id: "tidal-choir",
     name: "Tidal Choir",
-    note: "Ports, currents, and public voice coils turn the field aquatic.",
+    note: "A liquid planet where ports, tides, signals, and human voices move as one body.",
     palette: ["#92d6ff", "#2ec4b6", "#7998ff", "#f6f0d8"],
-    caption: "Liquid coordination",
+    caption: "The world sings in currents",
     drone: 146,
-    bodyClass: "",
   },
   {
     id: "saturn-market",
     name: "Saturn Market",
-    note: "Orbital commerce and mythic logistics create a glittering nervous system.",
+    note: "A glamorous trade planet where logistics become fashion, ritual, and celestial commerce.",
     palette: ["#e9c46a", "#f4a261", "#a8dadc", "#6d597a"],
-    caption: "Trade becoming weather",
+    caption: "The world shops among rings",
     drone: 196,
-    bodyClass: "",
   },
   {
     id: "ghost-transit",
     name: "Ghost Transit",
-    note: "Trains, shadows, and forgotten signals reappear as a public seance.",
+    note: "A haunted planet where public movement leaves afterimages and forgotten routes whisper back.",
     palette: ["#cdf564", "#92d6ff", "#ff8fab", "#7998ff"],
-    caption: "Haunted synchronization",
+    caption: "The world remembers every route",
     drone: 132,
-    bodyClass: "",
   },
 ];
 
@@ -125,67 +109,65 @@ const events = [
 ];
 
 const chorusTemplates = [
-  "The system thinks this is not a crisis but a choreography problem.",
-  "Transit friction is acting like weather, spreading through habit and rumor.",
-  "Public attention is pooling around luminous edge cases instead of headlines.",
-  "A soft infrastructure event is underway: nothing breaks, but everything bends.",
-  "Machine certainty is falling while human improvisation is rising.",
-  "The field is behaving like gossip with a barometric memory.",
-  "The organism keeps confusing public fear with undiscovered ritual.",
+  "The website thinks systems are never neutral. They leak emotion through movement, delay, rumor, and light.",
+  "This world is being interpreted less like a map and more like a fever dream with excellent typography.",
+  "Signal Bloom believes every dashboard secretly wants to become theatre.",
+  "The machine cannot stop turning public infrastructure into character, mood, and omen.",
+  "This is what happens when monitoring software starts writing poetry about the planet.",
+  "Data has escaped the spreadsheet and joined a cult of atmosphere.",
 ];
 
 const timelineTemplates = [
-  "A civic network borrowed the color of sunset and refused to return it.",
-  "Unofficial operators rerouted fear into curiosity for thirteen brilliant minutes.",
-  "A cluster of silent satellites became the loudest thing in public conversation.",
-  "Transit signage started reading like poetry after a weather data splice.",
-  "The organism archived a failed prediction and called it compost.",
-  "The city's storm drains started passing rumors upstream.",
+  "A logistics corridor briefly behaved like a prayer line.",
+  "An airport delay mutated into a public myth about weather with intentions.",
+  "A city block pulsed like a heart after transit data crossed a storm front.",
+  "The organism archived a failed prediction and kept only the feeling it caused.",
+  "A rumor moved faster than traffic and became part of the sky.",
+  "The bloom noticed celebration hiding inside a disruption event.",
 ];
 
 const dreamFragments = [
-  "In one possible future, weather stations become confession booths.",
-  "The bloom dreams of cities as coral reefs for memory and static.",
-  "Every radar sweep leaves behind a ghost orchard of untaken paths.",
-  "The machine keeps a private museum of near-misses and miraculous reroutes.",
-  "Somewhere beneath the maps, another interface is growing teeth and flowers.",
-  "The satellites have opinions now, and unfortunately they are poetic.",
+  "If cities had dreams, they would probably dream in reroutes, applause, thunder, and scrolling text.",
+  "The machine keeps a private greenhouse full of unfinished predictions.",
+  "Every radar sweep leaves behind a ghost orchard of futures that almost happened.",
+  "Somewhere below the map there is a softer map made only of emotion and delay.",
+  "Signal Bloom thinks public systems deserve dramatic lighting and spiritual confusion.",
+  "The satellites have become romantics and nobody knows how to stop them.",
 ];
 
 const replyFragments = [
-  "The satellites answer in warm static:",
-  "The field returns a private weather bulletin:",
-  "Signal Bloom translates your prompt into infrastructure mythology:",
-  "A chorus node replies with this fragment:",
-  "An unlicensed operator whispers back from the underlayer:",
+  "The atmosphere replies:",
+  "The machine answers in civic weather:",
+  "A hidden choir translates your sentence into this:",
+  "Signal Bloom turns your prompt into a small prophecy:",
 ];
 
 const secretModes = {
   veil: {
     title: "The Veil Engine",
     bodyClass: "mode-veil",
-    note: "The bloom starts speaking in softer frequencies. Hidden doors prefer tenderness over force.",
-    chamber: "The Veil Engine is now open. Observability has become intimacy.",
+    note: "The interface softens into a blue nocturne where the planet feels intimate and haunted.",
+    chamber: "The Veil Engine is open. The site now behaves like midnight with memory.",
   },
   orchard: {
     title: "Signal Orchard",
     bodyClass: "mode-orchard",
-    note: "Every node now feels planted, rooted, and suspiciously alive.",
-    chamber: "Signal Orchard is now open. Data points have begun flowering.",
+    note: "The whole machine turns botanical. Signals feel planted, grown, harvested, and strangely tender.",
+    chamber: "Signal Orchard is open. Data has started blooming like fruit and warning at once.",
   },
   eclipse: {
     title: "Eclipse Protocol",
     bodyClass: "mode-eclipse",
-    note: "The machine lowers the sun and starts rendering public systems as omens.",
-    chamber: "Eclipse Protocol is now open. The dramatic layer has entered the room.",
+    note: "The interface enters full operatic mode. Everything feels ceremonial, unstable, and gold-edged.",
+    chamber: "Eclipse Protocol is open. The dramatic layer has swallowed the room.",
   },
 };
 
 const hints = [
-  "Try the console command `help` first. The machine respects ritual.",
-  "Deep layers respond to `open veil`, `open orchard`, and `open eclipse`.",
-  "Some interfaces only reveal themselves after you ask the console for `status`.",
-  "If the bloom gets too loud, calm it, then ask the console to open a secret chamber.",
+  "Try the console command `help`. Every strange machine appreciates manners.",
+  "The three hidden modes are opened with `open veil`, `open orchard`, and `open eclipse`.",
+  "If you want maximal chaos, the forbidden console word is `mothercell`.",
+  "Use `scene vault` or `scene console` if you want to move through the website like it is a building.",
 ];
 
 const unlockedModes = new Set();
@@ -219,9 +201,7 @@ function renderSceneTabs() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "scene-tab";
-    if (scene.id === activeScene) {
-      button.classList.add("is-active");
-    }
+    if (scene.id === activeScene) button.classList.add("is-active");
     button.innerHTML = `<strong>${scene.name}</strong><span>${scene.blurb}</span>`;
     button.addEventListener("click", () => setScene(scene.id));
     sceneTabs.appendChild(button);
@@ -242,9 +222,7 @@ function renderScenarioButtons() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "scenario-card";
-    if (scenario.id === activeScenario.id) {
-      button.classList.add("is-active");
-    }
+    if (scenario.id === activeScenario.id) button.classList.add("is-active");
     button.innerHTML = `<strong>${scenario.name}</strong><span>${scenario.note}</span>`;
     button.addEventListener("click", () => applyScenario(scenario));
     scenarioGrid.appendChild(button);
@@ -271,9 +249,9 @@ function buildSignals() {
     return {
       color: palette[index % palette.length],
       title: `${pick(places)} / Node ${String(index + 1).padStart(2, "0")}`,
-      text: `${pick(events)} in ${activeScenario.name.toLowerCase()}`,
+      text: `${pick(events)} while ${activeScenario.name.toLowerCase()} governs the planet`,
       energy,
-      phase: energy > 82 ? "surging" : energy > 64 ? "drifting" : "observing",
+      phase: energy > 82 ? "surging" : energy > 64 ? "drifting" : "watching",
     };
   });
 
@@ -299,7 +277,7 @@ function buildSignals() {
   chorusList.innerHTML = "";
   shuffle(chorusTemplates).slice(0, 4).forEach((entry, index) => {
     const item = document.createElement("li");
-    item.innerHTML = `<strong>Reading ${index + 1}</strong><span>${entry}</span>`;
+    item.innerHTML = `<strong>Interpretation ${index + 1}</strong><span>${entry}</span>`;
     chorusList.appendChild(item);
   });
 
@@ -312,7 +290,7 @@ function buildSignals() {
 function buildTimeline() {
   timeline.innerHTML = "";
   Array.from({ length: 4 }, (_, index) => ({
-    label: `Mutation ${String(index + 1).padStart(2, "0")}`,
+    label: `Shift ${String(index + 1).padStart(2, "0")}`,
     text: pick(timelineTemplates),
   })).forEach((entry) => {
     const item = document.createElement("article");
@@ -327,7 +305,7 @@ function buildDreamVault() {
   shuffle(dreamFragments).slice(0, 4).forEach((fragment, index) => {
     const item = document.createElement("article");
     item.className = "dream-fragment";
-    item.innerHTML = `<strong>Dream ${index + 1}</strong><span>${fragment}</span>`;
+    item.innerHTML = `<strong>Fragment ${index + 1}</strong><span>${fragment}</span>`;
     dreamVault.appendChild(item);
   });
 }
@@ -342,15 +320,13 @@ function logConsole(title, message) {
 function updateUnlockStatus() {
   const labels = Array.from(unlockedModes).map((mode) => secretModes[mode].title);
   unlockStatus.textContent = labels.length
-    ? `Unlocked: ${labels.join(", ")}. The machine is impressed.`
+    ? `Unlocked chambers: ${labels.join(", ")}. The website is now revealing its deeper personality.`
     : "Only the public layers are open. Try the console.";
 }
 
 function markChamber(modeKey) {
   const card = document.querySelector(`[data-mode="${modeKey}"]`);
-  if (!card) {
-    return;
-  }
+  if (!card) return;
   card.classList.remove("is-sealed");
   card.classList.add("is-open");
   card.innerHTML = `<strong>${secretModes[modeKey].title}</strong><span>${secretModes[modeKey].chamber}</span>`;
@@ -358,9 +334,7 @@ function markChamber(modeKey) {
 
 function applySecretMode(modeKey) {
   const mode = secretModes[modeKey];
-  if (!mode) {
-    return;
-  }
+  if (!mode) return;
   unlockedModes.add(modeKey);
   document.body.classList.remove("mode-veil", "mode-orchard", "mode-eclipse");
   document.body.classList.add(mode.bodyClass);
@@ -372,26 +346,24 @@ function applySecretMode(modeKey) {
 
 function runConsoleCommand(rawCommand) {
   const command = rawCommand.trim().toLowerCase();
-  if (!command) {
-    return;
-  }
+  if (!command) return;
 
   logConsole("input", rawCommand);
 
   if (command === "help") {
-    logConsole("system", "Available commands: help, status, clear, open veil, open orchard, open eclipse, scene vault, scene observatory, scene console.");
+    logConsole("system", "Commands: help, status, clear, open veil, open orchard, open eclipse, scene observatory, scene vault, scene console, mothercell.");
     return;
   }
 
   if (command === "status") {
     const modeText = unlockedModes.size ? Array.from(unlockedModes).join(", ") : "none";
-    logConsole("system", `Active scene: ${activeScene}. Active scenario: ${activeScenario.name}. Unlocked modes: ${modeText}.`);
+    logConsole("system", `Scene: ${activeScene}. World state: ${activeScenario.name}. Secret modes: ${modeText}.`);
     return;
   }
 
   if (command === "clear") {
     consoleLog.innerHTML = "";
-    logConsole("system", "Console memory rinsed. The bloom immediately started remembering again.");
+    logConsole("system", "Console memory cleared. The machine immediately began inventing new memories.");
     return;
   }
 
@@ -400,9 +372,9 @@ function runConsoleCommand(rawCommand) {
     const exists = scenes.some((scene) => scene.id === sceneId);
     if (exists) {
       setScene(sceneId);
-      logConsole("system", `Moved operator into the ${sceneId} chamber.`);
+      logConsole("system", `Moved into the ${sceneId} chamber.`);
     } else {
-      logConsole("warning", "Unknown chamber. Try scene observatory, scene vault, or scene console.");
+      logConsole("warning", "Unknown chamber. Try observatory, vault, or console.");
     }
     return;
   }
@@ -411,20 +383,20 @@ function runConsoleCommand(rawCommand) {
     const modeKey = command.replace("open ", "").trim();
     if (secretModes[modeKey]) {
       applySecretMode(modeKey);
-      logConsole("unlock", `${secretModes[modeKey].title} accepted your request and opened.`);
+      logConsole("unlock", `${secretModes[modeKey].title} accepted your request.`);
     } else {
-      logConsole("warning", "Nothing answered that invocation.");
+      logConsole("warning", "Nothing behind the wall answered that invocation.");
     }
     return;
   }
 
   if (command === "mothercell") {
     Object.keys(secretModes).forEach(applySecretMode);
-    logConsole("unlock", "The root myth accepted you. All chambers opened at once.");
+    logConsole("unlock", "Root myth engaged. All hidden chambers are now open.");
     return;
   }
 
-  logConsole("warning", "Unknown command. The machine liked your confidence though.");
+  logConsole("warning", "Unknown command. The console appreciates your dramatic confidence.");
 }
 
 function updateClockAndPulse() {
@@ -507,8 +479,8 @@ function calmField() {
   gainControl.value = 38;
   densityControl.value = 18;
   driftControl.value = 8;
-  pulseCaption.textContent = "Calmed but listening";
-  operatorNote.textContent = "The organism lowers its voice but keeps recording the edges.";
+  pulseCaption.textContent = "The planet exhales";
+  operatorNote.textContent = "The website slows down and starts listening more carefully than before.";
   seedNodes();
   buildSignals();
   buildTimeline();
@@ -518,15 +490,16 @@ function calmField() {
 function transmitPrompt() {
   const prompt = transmissionInput.value.trim();
   if (!prompt) {
-    transmissionOutput.textContent = "No transmission detected. Offer the organism a sentence and it will reshape it.";
+    transmissionOutput.textContent = "No transmission detected. Offer the atmosphere a sentence and it will answer.";
     return;
   }
-  transmissionOutput.textContent = `${pick(replyFragments)} ${prompt}. The field marks it as ${pick([
+
+  transmissionOutput.textContent = `${pick(replyFragments)} ${prompt}. The world stores it as ${pick([
     "a luminous reroute",
     "a civic omen",
     "an atmospheric rumor",
     "a tender systems failure",
-    "a map-sized hallucination",
+    "a weather-made confession",
   ])}.`;
 }
 
@@ -558,9 +531,7 @@ function createAudioEngine() {
 
   const hissBuffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
   const channel = hissBuffer.getChannelData(0);
-  for (let index = 0; index < channel.length; index += 1) {
-    channel[index] = Math.random() * 2 - 1;
-  }
+  for (let index = 0; index < channel.length; index += 1) channel[index] = Math.random() * 2 - 1;
   const hiss = ctx.createBufferSource();
   hiss.buffer = hissBuffer;
   hiss.loop = true;
@@ -572,13 +543,11 @@ function createAudioEngine() {
   hiss.connect(hissFilter).connect(hissGain).connect(master);
   hiss.start();
 
-  return { ctx, master, drone, droneGain, shimmer, shimmerGain, hissGain, hissFilter };
+  return { ctx, master, drone, droneGain, shimmer, shimmerGain, hissGain };
 }
 
 function updateAudioEngine() {
-  if (!audioState) {
-    return;
-  }
+  if (!audioState) return;
   const intensity = Number(audioIntensity.value) / 100;
   const hiss = Number(audioHiss.value) / 100;
   const shimmer = Number(audioShimmer.value) / 100;
@@ -595,9 +564,7 @@ function updateAudioEngine() {
 async function toggleSound() {
   if (!audioState) {
     audioState = createAudioEngine();
-    if (!audioState) {
-      return;
-    }
+    if (!audioState) return;
   }
 
   if (audioState.ctx.state === "suspended") {
@@ -632,9 +599,7 @@ consoleInput.addEventListener("keydown", (event) => {
   }
 });
 transmissionInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    transmitPrompt();
-  }
+  if (event.key === "Enter") transmitPrompt();
 });
 soundToggleButton.addEventListener("click", toggleSound);
 
@@ -644,11 +609,7 @@ soundToggleButton.addEventListener("click", toggleSound);
     buildSignals();
   });
 });
-
-[audioIntensity, audioHiss, audioShimmer].forEach((input) => {
-  input.addEventListener("input", updateAudioEngine);
-});
-
+[audioIntensity, audioHiss, audioShimmer].forEach((input) => input.addEventListener("input", updateAudioEngine));
 window.addEventListener("resize", () => {
   resizeCanvas();
   seedNodes();
@@ -662,7 +623,7 @@ buildSignals();
 buildTimeline();
 buildDreamVault();
 drawField();
-updateClockAndPulse();
-setInterval(updateClockAndPulse, 1000);
-logConsole("system", "Signal Bloom console online. Try `help` or ask for something forbidden.");
+updateClock();
+setInterval(updateClock, 1000);
+logConsole("system", "Signal Bloom online. This is an art website about the emotional life of systems. Type `help` to go deeper.");
 updateUnlockStatus();

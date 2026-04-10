@@ -1,12 +1,20 @@
 # Signal Bloom
 
-Signal Bloom is a speculative monitoring interface that treats world activity like a living instrument instead of a spreadsheet. It is now a multi-scene static lore experience with a cinematic hero, procedural signal field, generated anomaly feed, hidden modes, browser-native ambient sound hooks, and a fake operator console that unlocks deeper layers.
+Signal Bloom is an experimental art website about the emotional life of systems. It imagines the planet as a living instrument made of weather, transit, rumor, satellites, celebration, anxiety, and movement. The result is a multi-scene static experience with a cinematic signal field, shifting world-states, a dream vault, browser-native ambient sound hooks, and a fake operator console that unlocks hidden modes.
 
 ## What it is
 
-- A bold static web experience designed to feel strange, polished, theatrical, and alive
-- A GitHub Pages-friendly front-end artifact with manifest, favicon, and fallback page
-- A playful concept piece exploring emotional interface design, secret states, and myth-making around global monitoring
+- A surreal interactive art site, not a traditional product or dashboard
+- A GitHub Pages-friendly static experience with animated visuals and browser-native sound generation
+- A playful concept piece exploring what happens when monitoring, myth, theatre, and interface design collide
+
+## How to experience it
+
+- Start in the hero and read the opening manifesto to understand the concept
+- Move between the Observatory, Dream Vault, and Operator Console
+- Change the planet's mood with world-state presets
+- Wake sound to hear the ambient drone, hiss, and shimmer engine
+- Use console commands like `help`, `status`, `open veil`, `open orchard`, `open eclipse`, and `mothercell`
 
 ## Run it
 
@@ -16,15 +24,9 @@ Open `index.html` in a browser.
 
 This project is static, so it can be deployed directly with GitHub Pages from the repository root.
 
-## Hidden layers
-
-- Use the scene switcher to move between the Observatory, Dream Vault, and Operator Console
-- Wake sound to enable the browser-native ambient engine
-- In the console, try commands like `help`, `status`, `open veil`, `open orchard`, `open eclipse`, and `mothercell`
-
 ## Files
 
-- `index.html` contains the structure, scenes, and console-facing interface
-- `style.css` defines the visual system, layout, hidden-mode styling, and motion
-- `script.js` generates the animated signal field, scenes, lore systems, console commands, and ambient audio engine
+- `index.html` contains the structure, scenes, and storytelling copy
+- `style.css` defines the visual system, layouts, hidden-mode styling, and motion
+- `script.js` drives the animated signal field, scene switching, lore systems, console commands, and ambient audio engine
 - `site.webmanifest`, `favicon.svg`, and `404.html` support a more deployment-ready static site
