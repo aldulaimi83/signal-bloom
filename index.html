@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Bloom</title>
+  <meta
+    name="description"
+    content="Signal Bloom is a cinematic speculative dashboard where world noise grows into a living instrument."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Syne:wght@400;500;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="aurora aurora-left"></div>
+  <div class="aurora aurora-right"></div>
+
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Experimental Broadcast Garden</p>
+      <p class="brand">SIGNAL BLOOM</p>
+    </div>
+    <div class="status-pill">
+      <span class="status-dot"></span>
+      <span id="clock">00:00:00 UTC</span>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Speculative Interface / Version 01</p>
+        <h1>World signals should feel alive, not filed away.</h1>
+        <p class="lede">
+          Signal Bloom imagines a control room where civic noise, weather drama, orbital traffic,
+          rumor, and human movement are translated into a living organism. It is less dashboard,
+          more ritual instrument.
+        </p>
+        <div class="hero-actions">
+          <button id="reseed" class="primary-button" type="button">Reseed the organism</button>
+          <button id="calm" class="ghost-button" type="button">Calm the field</button>
+        </div>
+      </div>
+
+      <div class="hero-stage">
+        <div class="stage-ring ring-one"></div>
+        <div class="stage-ring ring-two"></div>
+        <div class="stage-core">
+          <p>Pulse Index</p>
+          <strong id="pulse-index">87</strong>
+          <span>Chaotic but beautiful</span>
+        </div>
+        <canvas id="signal-canvas" aria-label="Animated signal field"></canvas>
+      </div>
+    </section>
+
+    <section class="metrics-grid">
+      <article class="metric-card accent-sun">
+        <p class="metric-label">Atmospheric Tension</p>
+        <div class="metric-value-row">
+          <strong id="metric-atmosphere">72%</strong>
+          <span>Stacked fronts over warm corridors</span>
+        </div>
+      </article>
+      <article class="metric-card accent-coral">
+        <p class="metric-label">Transit Drift</p>
+        <div class="metric-value-row">
+          <strong id="metric-transit">41 vectors</strong>
+          <span>Unexpected reroutes in 9 regions</span>
+        </div>
+      </article>
+      <article class="metric-card accent-lime">
+        <p class="metric-label">Story Temperature</p>
+        <div class="metric-value-row">
+          <strong id="metric-story">Rising</strong>
+          <span>Memes mutating into public narratives</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel large-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Live Synthetic Feed</p>
+            <h2>Signal Constellation</h2>
+          </div>
+          <p class="panel-note">Procedurally generated moments from an imaginary planet-wide sensing array.</p>
+        </div>
+        <div id="signal-stream" class="signal-stream"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Interpretation Layer</p>
+            <h2>Anomaly Chorus</h2>
+          </div>
+        </div>
+        <ul id="chorus-list" class="chorus-list"></ul>
+      </article>
+
+      <article class="panel manifesto-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Design Thesis</p>
+            <h2>Why this exists</h2>
+          </div>
+        </div>
+        <p>
+          Most monitoring tools flatten the world into neutral rows. Signal Bloom argues for a more
+          emotional interface: one that acknowledges intensity, uncertainty, and wonder without
+          pretending the operator is a machine.
+        </p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Field Controls</p>
+            <h2>Mood Knobs</h2>
+          </div>
+        </div>
+        <div class="control-stack">
+          <label>
+            Bloom gain
+            <input id="gain" type="range" min="20" max="100" value="68">
+          </label>
+          <label>
+            Pattern density
+            <input id="density" type="range" min="12" max="48" value="28">
+          </label>
+          <label>
+            Drift speed
+            <input id="drift" type="range" min="5" max="28" value="16">
+          </label>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Signal Bloom is an experiment in making monitoring interfaces feel cinematic, strange, and alive.</p>
+    <p>Built as a one-file-at-heart static artifact for fast deployment and fearless iteration.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
