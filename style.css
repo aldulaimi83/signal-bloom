@@ -157,6 +157,13 @@ button, input { font: inherit; }
   padding: 1.25rem clamp(1rem, 3vw, 2rem);
 }
 .topbar-actions { display: flex; align-items: center; gap: 0.8rem; }
+.network-link {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.network-link:hover { color: var(--accent); }
 .eyebrow {
   margin: 0 0 0.45rem;
   color: var(--gold);
@@ -357,6 +364,18 @@ input[type="range"] { width: 100%; accent-color: var(--sun); }
   margin: 0 auto; padding: 0 0 2rem; color: var(--muted); font-size: 0.75rem;
 }
 .footer p { margin: 0; max-width: 42ch; line-height: 1.8; }
+.network-footer-links {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.network-footer-links a {
+  color: var(--text);
+  text-decoration: none;
+}
+.network-footer-links a:hover { color: var(--accent); }
+.network-footer-label { color: var(--muted); font-weight: 700; }
 @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes blink { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
 @keyframes rise { to { opacity: 1; transform: translateY(0); } }
